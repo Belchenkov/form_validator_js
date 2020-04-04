@@ -7,14 +7,15 @@ const password2 = document.getElementById('password2');
 // Functions
 function showError(input, message) {
     const formControl = input.parentElement;
-    formControl.className = 'form-control error';
-
     const small = formControl.querySelector('small');
+
+    formControl.className = 'form-control error';
     small.innerText = message;
 }
 
 function showSuccess(input) {
     const formControl = input.parentElement;
+
     formControl.className = 'form-control success';
 }
 
@@ -55,6 +56,14 @@ function checkLength(input, min, max) {
     }
 }
 
+function checkPasswordMatch(input1, input2) {
+    if (input1.value !== input2.value) {
+        showError(input2, 'Passwords do not match');
+    } else {
+        showSuccess(input2);
+    }
+}
+
 // Event listeners
 form.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -70,4 +79,6 @@ form.addEventListener('submit', function (e) {
     checkLength(password, 6, 25);
 
     checkEmail(email);
+
+    checkPasswordMatch(password, password2);
 });
